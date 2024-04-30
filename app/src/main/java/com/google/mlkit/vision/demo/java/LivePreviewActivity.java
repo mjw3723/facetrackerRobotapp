@@ -50,6 +50,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -113,7 +114,11 @@ public class LivePreviewActivity extends AppCompatActivity
   int pariedDeviceCount;
 
   Map<String,BluetoothSocket> mapping = new HashMap<>();
+  //메인 이미지 태그
+  public static ImageView faceview;
+
   /////////////////// 크롤링 결과 출력 메서드//////////////////////
+
   private final Handler mHandler = new Handler(Looper.getMainLooper()) {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -128,7 +133,7 @@ public class LivePreviewActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Log.d(TAG, "onCreate");
-
+    
     setContentView(R.layout.activity_vision_live_preview);
     ///////////////////////////////얼굴인식/////////////////////////////////
     preview = findViewById(R.id.preview_view);
@@ -226,12 +231,7 @@ public class LivePreviewActivity extends AppCompatActivity
           Log.e(TAG, "Unknown model: " + model);
       }
     } catch (RuntimeException e) {
-      Log.e(TAG, "Can not create image processor: " + model, e);
-      Toast.makeText(
-              getApplicationContext(),
-              "Can not create image processor: " + e.getMessage(),
-              Toast.LENGTH_LONG)
-          .show();
+
     }
   }
 
@@ -286,11 +286,18 @@ public class LivePreviewActivity extends AppCompatActivity
   @Override
   public void onFaceDetected(boolean faceDetected) {
     Log.d("얼굴인식",String.valueOf(faceDetected));
+    faceview = findViewById(R.id.imageView3);
     if (faceDetected) {
       face = true;
+      if(LivePreviewActivity.faceview ==null){
+        Log.d("zz","null");
+      }else{
+        faceview.setImageResource(R.drawable.smile);
+      }
       startSpeechRecognition();
     } else {
       face = false;
+      faceview.setImageResource(R.drawable.face1);
     }
   }
   ////////////////////////얼굴 인식 후 TTS 실행

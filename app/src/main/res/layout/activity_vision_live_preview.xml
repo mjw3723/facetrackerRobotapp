@@ -10,11 +10,14 @@
 
   <ImageView
       android:id="@+id/imageView3"
-      android:layout_width="411dp"
-      android:layout_height="570dp"
-      app:srcCompat="@drawable/face"
-      tools:layout_editor_absoluteX="0dp"
-      tools:layout_editor_absoluteY="126dp" />
+      android:layout_width="406dp"
+      android:layout_height="722dp"
+      android:adjustViewBounds="true"
+      android:scaleType="fitXY"
+      app:srcCompat="@drawable/face1"
+      tools:ignore="MissingConstraints"
+      tools:layout_editor_absoluteX="-1dp"
+      tools:layout_editor_absoluteY="0dp" />
 
   <com.google.mlkit.vision.demo.CameraSourcePreview
       android:id="@+id/preview_view"
@@ -23,7 +26,7 @@
       app:layout_constraintTop_toTopOf="parent"
       tools:layout_editor_absoluteX="2dp"
 
-      ></com.google.mlkit.vision.demo.CameraSourcePreview>
+      tools:ignore="MissingConstraints"></com.google.mlkit.vision.demo.CameraSourcePreview>
 
   <com.google.mlkit.vision.demo.GraphicOverlay
       android:id="@+id/graphic_overlay"
@@ -41,7 +44,8 @@
       android:layout_height="22dp"
       android:background="#000"
       android:orientation="horizontal"
-      app:layout_constraintBottom_toBottomOf="parent">
+      app:layout_constraintBottom_toBottomOf="parent"
+      tools:ignore="MissingConstraints">
 
     <Spinner
         android:id="@+id/spinner"
