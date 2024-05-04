@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -46,6 +47,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -84,7 +86,6 @@ public class LivePreviewActivity extends AppCompatActivity
   /////////////////음성 출력 입력 ////////////////////////
   private TextToSpeech tts; //음성 출력용
   Context cThis;//context 설정
-  String LogTT="[STT]";//LOG타이틀
   //음성 인식용
   Intent SttIntent;
   SpeechRecognizer mRecognizer;
@@ -128,13 +129,15 @@ public class LivePreviewActivity extends AppCompatActivity
     }
   };
 
+  @SuppressLint("MissingInflatedId")
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Log.d(TAG, "onCreate");
-    
     setContentView(R.layout.activity_vision_live_preview);
+
+
     ///////////////////////////////얼굴인식/////////////////////////////////
     preview = findViewById(R.id.preview_view);
     if (preview == null) {
@@ -235,11 +238,6 @@ public class LivePreviewActivity extends AppCompatActivity
     }
   }
 
-  /**
-   * Starts or restarts the camera source, if it exists. If the camera source doesn't exist yet
-   * (e.g., because onResume was called before the camera source was created), this will be called
-   * again when the camera source is created.
-   */
   public void startCameraSource() {
     if (cameraSource != null) {
       try {
@@ -267,7 +265,6 @@ public class LivePreviewActivity extends AppCompatActivity
     startCameraSource();
   }
 
-  /** Stops the camera. */
   @Override
   protected void onPause() {
     super.onPause();
@@ -389,26 +386,38 @@ public class LivePreviewActivity extends AppCompatActivity
       speakOut("네 안녕하세요");
     }
     if(VoiceMsg.indexOf("메카트로닉스")>-1 || VoiceMsg.indexOf("메카트로닉스")>-1){
-      speakOut("미래를 향한 도전의 발판, 경성대 메카트로닉스공학과에 여러분을 초대합니다. 메카트로닉스공학과는 기계공학, 전기전자공학, 컴퓨터공학의 융합을 기반으로 현대 사회의 다양한 분야에서 기술적 도전에 대처할 수 있는 창의적이고 전문적인 역량을 함양하는데 초점을 맞추고 있습니다.");
+      speakOut("메카트로닉스공학과는 기계공학, 전기전자공학, 컴퓨터공학의 융합을 기반으로 현대 사회의 다양한 분야에서 기술적 도전에 대처할 수 있는 창의적이고 전문적인 역량을 함양하는데 초점을 맞추고 있습니다.");
     }
-    if(VoiceMsg.indexOf("405호")>-1 || VoiceMsg.indexOf("405호강의실")>-1){
-        Intent intent = new Intent(this, infoActivity.class);
-        intent.putExtra("option", "405"); // 여기서 "some_value"는 변수의 값입니다.
-        startActivity(intent);
+    if(VoiceMsg.indexOf("강의실")>-1 || VoiceMsg.indexOf("강의실")>-1){
+        if(VoiceMsg.indexOf("405")>-1){
+            speakOut("405호 강의실시간표입니다.");
+            Intent intent = new Intent(this, infoActivity.class);
+            intent.putExtra("option", "405"); // 여기서 "some_value"는 변수의 값입니다.
+            startActivity(intent);
+        }else if(VoiceMsg.indexOf("212")>-1){
+            speakOut("212호 강의실시간표입니다.");
+            Intent intent = new Intent(this, infoActivity.class);
+            intent.putExtra("option", "212"); // 여기서 "some_value"는 변수의 값입니다.
+            startActivity(intent);
+        }
+        else if(VoiceMsg.indexOf("216")>-1){
+          speakOut("216호 강의실시간표입니다.");
+          Intent intent = new Intent(this, infoActivity.class);
+          intent.putExtra("option", "216"); // 여기서 "some_value"는 변수의 값입니다.
+          startActivity(intent);
+        }
+        else if(VoiceMsg.indexOf("217")>-1){
+          speakOut("217호 강의실시간표입니다.");
+          Intent intent = new Intent(this, infoActivity.class);
+          intent.putExtra("option", "217"); // 여기서 "some_value"는 변수의 값입니다.
+          startActivity(intent);
+        }else{
+          speakOut("몇호 강의실인지 정확하게 말씀해주세요.");
+        }
     }
-    if(VoiceMsg.indexOf("216호")>-1 || VoiceMsg.indexOf("216호강의실")>-1){
-      Intent intent = new Intent(this, infoActivity.class);
-      intent.putExtra("option", "216"); // 여기서 "some_value"는 변수의 값입니다.
-      startActivity(intent);
-    }
-    if(VoiceMsg.indexOf("217호")>-1 || VoiceMsg.indexOf("217호강의실")>-1){
-      Intent intent = new Intent(this, infoActivity.class);
-      intent.putExtra("option", "217"); // 여기서 "some_value"는 변수의 값입니다.
-      startActivity(intent);
-    }
-    if(VoiceMsg.indexOf("212호")>-1 || VoiceMsg.indexOf("212호강의실")>-1){
-      Intent intent = new Intent(this, infoActivity.class);
-      intent.putExtra("option", "212"); // 여기서 "some_value"는 변수의 값입니다.
+    if(VoiceMsg.indexOf("날씨")>-1 || VoiceMsg.indexOf("날씨")>-1){
+      speakOut("현재 경성대 날씨 정보입니다.");
+      Intent intent = new Intent(this, weatherActivity.class);
       startActivity(intent);
     }
     if(VoiceMsg.indexOf("블루투스")>-1 || VoiceMsg.indexOf("블루투스")>-1){

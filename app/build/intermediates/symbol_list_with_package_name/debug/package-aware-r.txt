@@ -1196,6 +1196,8 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id weather_webview
+id webView
 id wide
 id withText
 id wrap
@@ -1249,6 +1251,7 @@ layout activity_vision_camerax_live_preview
 layout activity_vision_cameraxsource_demo
 layout activity_vision_entry_choice
 layout activity_vision_live_preview
+layout activity_weather
 layout custom_dialog
 layout notification_action
 layout notification_action_tombstone
@@ -1862,5 +1865,6 @@ styleable Variant constraints region_heightLessThan region_heightMoreThan region
 styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml network_security_config
 xml preference_live_preview_quickstart
 xml preference_still_image

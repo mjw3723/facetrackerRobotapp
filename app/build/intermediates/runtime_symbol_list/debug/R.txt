@@ -1195,6 +1195,8 @@ int id view_tree_saved_state_registry_owner 0x7f090123
 int id view_tree_view_model_store_owner 0x7f090124
 int id visible 0x7f090125
 int id visible_removing_fragment_view_tag 0x7f090126
+int id weather_webview 0x7f09012f
+int id webView 0x7f09012e
 int id wide 0x7f090127
 int id withText 0x7f090128
 int id wrap 0x7f090129
@@ -1248,6 +1250,7 @@ int layout activity_vision_camerax_live_preview 0x7f0c001f
 int layout activity_vision_cameraxsource_demo 0x7f0c0020
 int layout activity_vision_entry_choice 0x7f0c0021
 int layout activity_vision_live_preview 0x7f0c0022
+int layout activity_weather 0x7f0c0032
 int layout custom_dialog 0x7f0c0023
 int layout notification_action 0x7f0c0024
 int layout notification_action_tombstone 0x7f0c0025
@@ -2870,5 +2873,6 @@ int[] styleable ViewStubCompat { 0x010100d0, 0x010100f2, 0x010100f3 }
 int styleable ViewStubCompat_android_id 0
 int styleable ViewStubCompat_android_layout 1
 int styleable ViewStubCompat_android_inflatedId 2
+int xml network_security_config 0x7f120002
 int xml preference_live_preview_quickstart 0x7f120000
 int xml preference_still_image 0x7f120001

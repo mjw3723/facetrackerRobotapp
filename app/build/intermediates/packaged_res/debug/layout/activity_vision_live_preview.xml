@@ -12,21 +12,29 @@
       android:id="@+id/imageView3"
       android:layout_width="406dp"
       android:layout_height="722dp"
+      android:layout_marginTop="7dp"
       android:adjustViewBounds="true"
       android:scaleType="fitXY"
+      app:layout_constraintBottom_toTopOf="@+id/control"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/preview_view"
       app:srcCompat="@drawable/face1"
-      tools:ignore="MissingConstraints"
-      tools:layout_editor_absoluteX="-1dp"
-      tools:layout_editor_absoluteY="0dp" />
+      tools:ignore="MissingConstraints" />
 
   <com.google.mlkit.vision.demo.CameraSourcePreview
       android:id="@+id/preview_view"
       android:layout_width="409dp"
-      android:layout_height="72dp"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:layout_editor_absoluteX="2dp"
+      android:layout_height="1dp"
+      app:layout_constraintEnd_toEndOf="parent"
 
-      tools:ignore="MissingConstraints"></com.google.mlkit.vision.demo.CameraSourcePreview>
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="MissingConstraints">
+
+    <WebView
+        android:layout_width="172dp"
+        android:layout_height="50dp" />
+  </com.google.mlkit.vision.demo.CameraSourcePreview>
 
   <com.google.mlkit.vision.demo.GraphicOverlay
       android:id="@+id/graphic_overlay"
@@ -41,7 +49,7 @@
   <LinearLayout
       android:id="@id/control"
       android:layout_width="409dp"
-      android:layout_height="22dp"
+      android:layout_height="1dp"
       android:background="#000"
       android:orientation="horizontal"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -55,5 +63,13 @@
         android:layout_weight="1" />
 
   </LinearLayout>
+
+  <WebView
+      android:id="@+id/webView"
+      android:layout_width="1dp"
+      android:layout_height="1dp"
+      tools:layout_editor_absoluteX="85dp"
+      tools:layout_editor_absoluteY="9dp"
+      tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

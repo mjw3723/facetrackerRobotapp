@@ -59,6 +59,8 @@ id size_selector
 id spinner
 id take_photo_using_camera
 id test_activity_list_view
+id weather_webview
+id webView
 layout activity_chooser
 layout activity_info
 layout activity_settings
@@ -67,6 +69,7 @@ layout activity_vision_camerax_live_preview
 layout activity_vision_cameraxsource_demo
 layout activity_vision_entry_choice
 layout activity_vision_live_preview
+layout activity_weather
 layout settings_style
 layout spinner_style
 layout toggle_style
@@ -190,5 +193,6 @@ string start_over
 string toggle_turn_off
 string toggle_turn_on
 style AppTheme
+xml network_security_config
 xml preference_live_preview_quickstart
 xml preference_still_image
