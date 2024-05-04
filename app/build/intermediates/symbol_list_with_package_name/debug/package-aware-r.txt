@@ -998,7 +998,6 @@ id collapseActionView
 id content
 id contentPanel
 id control
-id control2
 id cos
 id custom
 id customPanel
@@ -1009,7 +1008,6 @@ id decor_content_parent
 id default_activity_button
 id deltaRelative
 id dependency_ordering
-id detector
 id dialog_button
 id dimensions
 id direct
@@ -1030,7 +1028,6 @@ id end
 id expand_activities_button
 id expanded_menu
 id facing_switch
-id feature_selector
 id fillCenter
 id fillEnd
 id fillStart
@@ -1097,7 +1094,6 @@ id pathRelative
 id percent
 id position
 id postLayout
-id preview
 id preview_view
 id progress_circular
 id progress_horizontal
@@ -1108,7 +1104,6 @@ id reverseSawtooth
 id right
 id right_icon
 id right_side
-id root
 id sawtooth
 id screen
 id scrollIndicatorDown
@@ -1125,8 +1120,6 @@ id search_plate
 id search_src_text
 id search_voice_btn
 id select_dialog_listview
-id select_image_button
-id select_images_from_local
 id settings_button
 id settings_container
 id shortcut
@@ -1134,7 +1127,6 @@ id showCustom
 id showHome
 id showTitle
 id sin
-id size_selector
 id spacer
 id special_effects_controller_view_tag
 id spinner
@@ -1169,12 +1161,13 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
-id take_photo_using_camera
 id test_activity_list_view
 id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
+id textView2
 id time
 id title
 id titleDividerNoCustom
@@ -1197,7 +1190,6 @@ id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
 id weather_webview
-id webView
 id wide
 id withText
 id wrap
@@ -1246,9 +1238,6 @@ layout abc_tooltip
 layout activity_chooser
 layout activity_info
 layout activity_settings
-layout activity_still_image
-layout activity_vision_camerax_live_preview
-layout activity_vision_cameraxsource_demo
 layout activity_vision_entry_choice
 layout activity_vision_live_preview
 layout activity_weather
@@ -1266,7 +1255,6 @@ layout settings_style
 layout spinner_style
 layout support_simple_spinner_dropdown_item
 layout toggle_style
-menu camera_button_menu
 mipmap ic_launcher
 string abc_action_bar_home_description
 string abc_action_bar_up_description

@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +20,12 @@ import com.google.mlkit.vision.demo.R;
 
 public class weatherActivity extends AppCompatActivity {
     WebView webView;
+    TextView textView;
     String source;
-    private static final long DELAY_TIME = 15000; // 15초 지연 시간
+    static int cnt = 15;
+    private static final long DELAY_TIME = cnt*1000; // 15초 지연 시간
+    private Handler handler;
+    private Runnable runnable;
 
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +54,39 @@ public class weatherActivity extends AppCompatActivity {
         final Runnable delayedAction = new Runnable() {
             @Override
             public void run() {
+
                 Intent intent = new Intent(weatherActivity.this, LivePreviewActivity.class);
                 startActivity(intent);
                 finish();
             }
         };
 
+
+
+
         Handler mHandler = new Handler();
         mHandler.postDelayed(delayedAction, DELAY_TIME);
 
+        textView = findViewById(R.id.textView);
+        handler = new Handler(Looper.getMainLooper());
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                // 이벤트 발생 코드
+                cnt -=1;
+                textView.setText(String.valueOf(cnt));
+                if(cnt !=0) {
+                    // 다시 자신을 호출하여 1초마다 반복
+                    handler.postDelayed(this, 1000);
+                }else{
+                    finish();
+                }
 
+            }
+        };
+
+        // 처음에 한 번 실행하고, 이후에는 1초마다 반복
+        handler.postDelayed(runnable, 1000);
         Button backButton = findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

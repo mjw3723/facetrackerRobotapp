@@ -64,12 +64,5 @@
 
   </LinearLayout>
 
-  <WebView
-      android:id="@+id/webView"
-      android:layout_width="1dp"
-      android:layout_height="1dp"
-      tools:layout_editor_absoluteX="85dp"
-      tools:layout_editor_absoluteY="9dp"
-      tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

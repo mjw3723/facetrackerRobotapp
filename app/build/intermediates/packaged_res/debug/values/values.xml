@@ -60,17 +60,17 @@
     <color name="light_grey_400">#E6E6E6</color>
     <color name="red">#f44242</color>
     <color name="white">#FFFFFF</color>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">50dp</dimen>
+    <dimen name="activity_vertical_margin">100dp</dimen>
     <dimen name="padding_standard">10dp</dimen>
-    <string name="app_name" translatable="false">Kyungsung 메카돌이</string>
+    <string name="app_name" translatable="false">Kyungsung TTOOL</string>
     <string name="custom_object_detection" translatable="false">Custom Object Detector</string>
     <string name="desc_camera_source_activity" translatable="false">Vision detectors demo with live camera preview</string>
     <string name="desc_camerax_live_preview_activity" translatable="false">Vision detectors demo with live preview using CameraX. Note that CameraX is only supported on API 21+</string>
     <string name="desc_cameraxsource_demo_activity" translatable="false">Object detection with custom classifier using ML Kit CameraXSource API. Note that CameraX is only supported on API 21+</string>
     <string name="desc_still_image_activity" translatable="false">Vision detectors demo with a still image</string>
     <string name="download_error" translatable="false">Download error</string>
-    <string name="java_entry_title" translatable="false">메카돌이 시작</string>
+    <string name="java_entry_title" translatable="false">TTOOL 실행</string>
     <string name="kotlin_entry_title" translatable="false">Run the ML Kit quickstart written in Kotlin</string>
     <string name="low_storage_error" translatable="false">Face detector dependencies cannot be downloaded due to low device storage</string>
     <string name="menu_item_settings" translatable="false">Settings</string>

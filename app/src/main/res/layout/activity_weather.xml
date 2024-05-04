@@ -9,11 +9,10 @@
 
   <Button
       android:id="@+id/back"
-      android:layout_width="399dp"
+      android:layout_width="297dp"
       android:layout_height="61dp"
       android:text="뒤로가기"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
 
   <WebView
@@ -28,4 +27,14 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="88dp"
+      android:layout_height="63dp"
+      android:textSize="30sp"
+      android:gravity="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/back" />
 </androidx.constraintlayout.widget.ConstraintLayout>

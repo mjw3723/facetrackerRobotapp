@@ -180,7 +180,7 @@ public class LivePreviewActivity extends AppCompatActivity
           Voice voice = new Voice("ko-kr-x-gender-male", Locale.KOREAN, Voice.QUALITY_VERY_HIGH, Voice.LATENCY_NORMAL, false, null);
           // Voice 객체를 설정합니다.
           tts.setVoice(voice);
-          speakOut("메카돌이");
+          speakOut("뚤");
         }
       }
     });

@@ -997,7 +997,6 @@ int id collapseActionView 0x7f09005e
 int id content 0x7f09005f
 int id contentPanel 0x7f090060
 int id control 0x7f090061
-int id control2 0x7f090062
 int id cos 0x7f090063
 int id custom 0x7f090064
 int id customPanel 0x7f090065
@@ -1008,7 +1007,6 @@ int id decor_content_parent 0x7f090069
 int id default_activity_button 0x7f09006a
 int id deltaRelative 0x7f09006b
 int id dependency_ordering 0x7f09006c
-int id detector 0x7f09006d
 int id dialog_button 0x7f09006e
 int id dimensions 0x7f09006f
 int id direct 0x7f090070
@@ -1029,7 +1027,6 @@ int id end 0x7f09007e
 int id expand_activities_button 0x7f09007f
 int id expanded_menu 0x7f090080
 int id facing_switch 0x7f090081
-int id feature_selector 0x7f090082
 int id fillCenter 0x7f090083
 int id fillEnd 0x7f090084
 int id fillStart 0x7f090085
@@ -1096,7 +1093,6 @@ int id pathRelative 0x7f0900c0
 int id percent 0x7f0900c1
 int id position 0x7f0900c2
 int id postLayout 0x7f0900c3
-int id preview 0x7f0900c4
 int id preview_view 0x7f0900c5
 int id progress_circular 0x7f0900c6
 int id progress_horizontal 0x7f0900c7
@@ -1107,7 +1103,6 @@ int id reverseSawtooth 0x7f0900cb
 int id right 0x7f0900cc
 int id right_icon 0x7f0900cd
 int id right_side 0x7f0900ce
-int id root 0x7f0900cf
 int id sawtooth 0x7f0900d0
 int id screen 0x7f0900d1
 int id scrollIndicatorDown 0x7f0900d2
@@ -1124,8 +1119,6 @@ int id search_plate 0x7f0900dc
 int id search_src_text 0x7f0900dd
 int id search_voice_btn 0x7f0900de
 int id select_dialog_listview 0x7f0900df
-int id select_image_button 0x7f0900e0
-int id select_images_from_local 0x7f0900e1
 int id settings_button 0x7f0900e2
 int id settings_container 0x7f0900e3
 int id shortcut 0x7f0900e4
@@ -1133,7 +1126,6 @@ int id showCustom 0x7f0900e5
 int id showHome 0x7f0900e6
 int id showTitle 0x7f0900e7
 int id sin 0x7f0900e8
-int id size_selector 0x7f0900e9
 int id spacer 0x7f0900ea
 int id special_effects_controller_view_tag 0x7f0900eb
 int id spinner 0x7f0900ec
@@ -1168,12 +1160,13 @@ int id tag_transition_group 0x7f090108
 int id tag_unhandled_key_event_manager 0x7f090109
 int id tag_unhandled_key_listeners 0x7f09010a
 int id tag_window_insets_animation_callback 0x7f09010b
-int id take_photo_using_camera 0x7f09010c
 int id test_activity_list_view 0x7f09010d
 int id text 0x7f09010e
 int id text2 0x7f09010f
 int id textSpacerNoButtons 0x7f090110
 int id textSpacerNoTitle 0x7f090111
+int id textView 0x7f090130
+int id textView2 0x7f090131
 int id time 0x7f090112
 int id title 0x7f090113
 int id titleDividerNoCustom 0x7f090114
@@ -1196,7 +1189,6 @@ int id view_tree_view_model_store_owner 0x7f090124
 int id visible 0x7f090125
 int id visible_removing_fragment_view_tag 0x7f090126
 int id weather_webview 0x7f09012f
-int id webView 0x7f09012e
 int id wide 0x7f090127
 int id withText 0x7f090128
 int id wrap 0x7f090129
@@ -1245,9 +1237,6 @@ int layout abc_tooltip 0x7f0c001b
 int layout activity_chooser 0x7f0c001c
 int layout activity_info 0x7f0c0031
 int layout activity_settings 0x7f0c001d
-int layout activity_still_image 0x7f0c001e
-int layout activity_vision_camerax_live_preview 0x7f0c001f
-int layout activity_vision_cameraxsource_demo 0x7f0c0020
 int layout activity_vision_entry_choice 0x7f0c0021
 int layout activity_vision_live_preview 0x7f0c0022
 int layout activity_weather 0x7f0c0032
@@ -1265,7 +1254,6 @@ int layout settings_style 0x7f0c002d
 int layout spinner_style 0x7f0c002e
 int layout support_simple_spinner_dropdown_item 0x7f0c002f
 int layout toggle_style 0x7f0c0030
-int menu camera_button_menu 0x7f0d0000
 int mipmap ic_launcher 0x7f0e0000
 int string abc_action_bar_home_description 0x7f0f0000
 int string abc_action_bar_up_description 0x7f0f0001
