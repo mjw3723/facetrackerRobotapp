@@ -25,12 +25,19 @@ color white
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
 dimen padding_standard
+drawable class212
+drawable class216
+drawable class217
+drawable class405
 drawable face
+drawable face1
 drawable ic_settings_white_24dp
 drawable ic_switch_camera_white_48dp
 drawable ic_switch_camera_white_48dp_inset
 drawable list_item_background
 drawable logo_mlkit
+drawable smile
+id back
 id control
 id control2
 id detector
@@ -39,6 +46,7 @@ id feature_selector
 id graphic_overlay
 id imageView
 id imageView3
+id infoView
 id java_entry_point
 id preview
 id preview_view
@@ -52,6 +60,7 @@ id spinner
 id take_photo_using_camera
 id test_activity_list_view
 layout activity_chooser
+layout activity_info
 layout activity_settings
 layout activity_still_image
 layout activity_vision_camerax_live_preview

@@ -851,6 +851,10 @@ int drawable btn_radio_off_mtrl 0x7f080053
 int drawable btn_radio_off_to_on_mtrl_animation 0x7f080054
 int drawable btn_radio_on_mtrl 0x7f080055
 int drawable btn_radio_on_to_off_mtrl_animation 0x7f080056
+int drawable class212 0x7f080084
+int drawable class216 0x7f080085
+int drawable class217 0x7f080086
+int drawable class405 0x7f080083
 int drawable common_full_open_on_phone 0x7f080057
 int drawable common_google_signin_btn_icon_dark 0x7f080058
 int drawable common_google_signin_btn_icon_dark_focused 0x7f080059
@@ -871,6 +875,7 @@ int drawable common_google_signin_btn_text_light_focused 0x7f080067
 int drawable common_google_signin_btn_text_light_normal 0x7f080068
 int drawable common_google_signin_btn_text_light_normal_background 0x7f080069
 int drawable face 0x7f08006a
+int drawable face1 0x7f080081
 int drawable googleg_disabled_color_18 0x7f08006b
 int drawable googleg_standard_color_18 0x7f08006c
 int drawable ic_settings_white_24dp 0x7f08006d
@@ -890,6 +895,7 @@ int drawable notification_template_icon_bg 0x7f08007a
 int drawable notification_template_icon_low_bg 0x7f08007b
 int drawable notification_tile_bg 0x7f08007c
 int drawable notify_panel_notification_icon_bg 0x7f08007d
+int drawable smile 0x7f080082
 int drawable test_level_drawable 0x7f08007e
 int drawable tooltip_frame_dark 0x7f08007f
 int drawable tooltip_frame_light 0x7f080080
@@ -1054,6 +1060,7 @@ int id image 0x7f09009d
 int id imageView 0x7f09009e
 int id imageView3 0x7f09009f
 int id info 0x7f0900a0
+int id infoView 0x7f09012d
 int id invisible 0x7f0900a1
 int id italic 0x7f0900a2
 int id java_entry_point 0x7f0900a3
@@ -1234,6 +1241,7 @@ int layout abc_search_view 0x7f0c0019
 int layout abc_select_dialog_material 0x7f0c001a
 int layout abc_tooltip 0x7f0c001b
 int layout activity_chooser 0x7f0c001c
+int layout activity_info 0x7f0c0031
 int layout activity_settings 0x7f0c001d
 int layout activity_still_image 0x7f0c001e
 int layout activity_vision_camerax_live_preview 0x7f0c001f

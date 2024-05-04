@@ -385,12 +385,31 @@ public class LivePreviewActivity extends AppCompatActivity
     if(VoiceMsg.length()<1)return;
 
     VoiceMsg=VoiceMsg.replace(" ","");//공백제거
-
+    if(VoiceMsg.indexOf("안녕하세요")>-1 || VoiceMsg.indexOf("안녕하세요")>-1){
+      speakOut("네 안녕하세요");
+    }
     if(VoiceMsg.indexOf("메카트로닉스")>-1 || VoiceMsg.indexOf("메카트로닉스")>-1){
       speakOut("미래를 향한 도전의 발판, 경성대 메카트로닉스공학과에 여러분을 초대합니다. 메카트로닉스공학과는 기계공학, 전기전자공학, 컴퓨터공학의 융합을 기반으로 현대 사회의 다양한 분야에서 기술적 도전에 대처할 수 있는 창의적이고 전문적인 역량을 함양하는데 초점을 맞추고 있습니다.");
     }
-    if(VoiceMsg.indexOf("조동현")>-1 || VoiceMsg.indexOf("조동현")>-1){
-      speakOut("조동현은 경성대 메카트로닉스 19학번 인싸입니다.");
+    if(VoiceMsg.indexOf("405호")>-1 || VoiceMsg.indexOf("405호강의실")>-1){
+        Intent intent = new Intent(this, infoActivity.class);
+        intent.putExtra("option", "405"); // 여기서 "some_value"는 변수의 값입니다.
+        startActivity(intent);
+    }
+    if(VoiceMsg.indexOf("216호")>-1 || VoiceMsg.indexOf("216호강의실")>-1){
+      Intent intent = new Intent(this, infoActivity.class);
+      intent.putExtra("option", "216"); // 여기서 "some_value"는 변수의 값입니다.
+      startActivity(intent);
+    }
+    if(VoiceMsg.indexOf("217호")>-1 || VoiceMsg.indexOf("217호강의실")>-1){
+      Intent intent = new Intent(this, infoActivity.class);
+      intent.putExtra("option", "217"); // 여기서 "some_value"는 변수의 값입니다.
+      startActivity(intent);
+    }
+    if(VoiceMsg.indexOf("212호")>-1 || VoiceMsg.indexOf("212호강의실")>-1){
+      Intent intent = new Intent(this, infoActivity.class);
+      intent.putExtra("option", "212"); // 여기서 "some_value"는 변수의 값입니다.
+      startActivity(intent);
     }
     if(VoiceMsg.indexOf("블루투스")>-1 || VoiceMsg.indexOf("블루투스")>-1){
       setBluetooth();
@@ -423,6 +442,7 @@ public class LivePreviewActivity extends AppCompatActivity
       KsHaksa jsoupThread = new KsHaksa(month, mHandler);
       jsoupThread.start();
     }
+
 
   }
 
