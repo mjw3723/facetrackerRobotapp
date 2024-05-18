@@ -31,6 +31,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.raw" />
     <application
         android:networkSecurityConfig="@xml/network_security_config"
 
@@ -79,6 +81,11 @@
             android:name=".java.LivePreviewActivity"
             android:exported="false"
             android:theme="@style/AppTheme">
+        </activity>
+
+        <activity android:name=".java.CameraActivity">
+            android:screenOrientation="landscape"
+            android:exported="false">
         </activity>
 
 

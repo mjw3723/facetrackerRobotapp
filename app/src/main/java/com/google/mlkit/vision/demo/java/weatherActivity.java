@@ -23,16 +23,18 @@ public class weatherActivity extends AppCompatActivity {
     TextView textView;
     String source;
     static int cnt = 15;
+    int temp = 15;
     private static final long DELAY_TIME = cnt*1000; // 15초 지연 시간
     private Handler handler;
     private Runnable runnable;
 
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
+        cnt = temp;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-
         webView = findViewById(R.id.weather_webview);
+        String option = getIntent().getStringExtra("option");
         //WebView 자바스크립트 활성화
         webView.getSettings().setJavaScriptEnabled(true);
         // 자바스크립트인터페이스 연결
@@ -49,7 +51,7 @@ public class weatherActivity extends AppCompatActivity {
             }
         });
         //지정한 URL을 웹 뷰로 접근하기
-        webView.loadUrl("https://search.naver.com/search.naver?query=부산광역시남구대연동날씨");
+        webView.loadUrl("https://search.naver.com/search.naver?query="+option+"날씨");
 
         final Runnable delayedAction = new Runnable() {
             @Override
@@ -74,16 +76,20 @@ public class weatherActivity extends AppCompatActivity {
             public void run() {
                 // 이벤트 발생 코드
                 cnt -=1;
-                textView.setText(String.valueOf(cnt));
+                textView.setText("남은시간 :"+String.valueOf(cnt));
                 if(cnt !=0) {
                     // 다시 자신을 호출하여 1초마다 반복
                     handler.postDelayed(this, 1000);
                 }else{
+                    cnt = temp;
                     finish();
                 }
 
             }
         };
+        if(cnt ==0){
+            cnt = temp;
+        }
 
         // 처음에 한 번 실행하고, 이후에는 1초마다 반복
         handler.postDelayed(runnable, 1000);

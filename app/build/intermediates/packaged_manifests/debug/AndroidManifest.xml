@@ -33,6 +33,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.raw" />
+
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -97,6 +100,10 @@
             android:name="com.google.mlkit.vision.demo.java.LivePreviewActivity"
             android:exported="false"
             android:theme="@style/AppTheme" >
+        </activity>
+        <activity android:name="com.google.mlkit.vision.demo.java.CameraActivity" >
+            android:screenOrientation="landscape"
+            android:exported="false">
         </activity>
         <activity
             android:name="com.google.mlkit.vision.demo.preference.SettingsActivity"

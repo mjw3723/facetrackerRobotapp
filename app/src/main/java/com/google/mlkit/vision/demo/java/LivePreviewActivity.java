@@ -44,6 +44,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.util.Log;
 import android.view.View;
@@ -101,6 +102,7 @@ public class LivePreviewActivity extends AppCompatActivity
   private String selectedModel;
   private boolean face;
 
+  private static boolean speak;
   ///////////////////블루 투스 /////
   private static final int REQUEST_ENABLE_BT = 10; // 블루투스 활성화 상태
   private BluetoothAdapter bluetoothAdapter; // 블루투스 어댑터
@@ -118,6 +120,7 @@ public class LivePreviewActivity extends AppCompatActivity
   //메인 이미지 태그
   public static ImageView faceview;
 
+
   /////////////////// 크롤링 결과 출력 메서드//////////////////////
 
   private final Handler mHandler = new Handler(Looper.getMainLooper()) {
@@ -134,10 +137,15 @@ public class LivePreviewActivity extends AppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.d(TAG, "onCreate");
     setContentView(R.layout.activity_vision_live_preview);
-
-
+   //인터넷 연결여부 확인
+    if (!NetworkUtil.isInternetConnected(this)) {
+      Toast.makeText(this, "인터넷에 연결되어 있지 않습니다. Wi-Fi 설정 화면으로 이동합니다.", Toast.LENGTH_LONG).show();
+      WifiUtil.showWifiSettings(this);
+      finish();
+    } else {
+      Toast.makeText(this, "인터넷에 연결되어 있습니다.", Toast.LENGTH_LONG).show();
+    }
     ///////////////////////////////얼굴인식/////////////////////////////////
     preview = findViewById(R.id.preview_view);
     if (preview == null) {
@@ -147,6 +155,8 @@ public class LivePreviewActivity extends AppCompatActivity
     if (graphicOverlay == null) {
       Log.d(TAG, "graphicOverlay is null");
     }
+
+    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
     Spinner spinner = findViewById(R.id.spinner);
     List<String> options = new ArrayList<>();
@@ -154,38 +164,13 @@ public class LivePreviewActivity extends AppCompatActivity
 
     // Creating adapter for spinner
     ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style, options);
-    // Drop down layout style - list view with radio button
     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    // attaching data adapter to spinner
     spinner.setAdapter(dataAdapter);
     spinner.setOnItemSelectedListener(this);
     createCameraSource(selectedModel);
-
+    //TTS 설정
     SetTTS();
   }
-  public void SetTTS(){
-    tts = new TextToSpeech(this, this);
-    cThis=this;
-    SttIntent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-    SttIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getApplicationContext().getPackageName());
-    SttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");//한국어 사용
-    mRecognizer=SpeechRecognizer.createSpeechRecognizer(cThis);
-    mRecognizer.setRecognitionListener(listener);
-    tts=new TextToSpeech(cThis, new TextToSpeech.OnInitListener() {
-      @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-      @Override
-      public void onInit(int status) {
-        if(status!=android.speech.tts.TextToSpeech.ERROR){
-          tts.setLanguage(Locale.KOREAN);
-          Voice voice = new Voice("ko-kr-x-gender-male", Locale.KOREAN, Voice.QUALITY_VERY_HIGH, Voice.LATENCY_NORMAL, false, null);
-          // Voice 객체를 설정합니다.
-          tts.setVoice(voice);
-          speakOut("뚤");
-        }
-      }
-    });
-  }
-
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override
@@ -218,7 +203,7 @@ public class LivePreviewActivity extends AppCompatActivity
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public void createCameraSource(String model) {
-    // If there's no existing cameraSource, create one.
+   //카메라 객체 생성
     if (cameraSource == null) {
       cameraSource = new CameraSource(this, graphicOverlay);
     }
@@ -226,26 +211,24 @@ public class LivePreviewActivity extends AppCompatActivity
     try {
       switch (model) {
         case FACE_DETECTION:
-          Log.i(TAG, "Using Face Detector Processor");
+          Log.i(TAG, "얼굴인식 시작");
           cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
           cameraSource.setMachineLearningFrameProcessor(new FaceDetectorProcessor(this,this,this));
           break;
         default:
           Log.e(TAG, "Unknown model: " + model);
       }
-    } catch (RuntimeException e) {
-
-    }
+    } catch (RuntimeException e) {}
   }
 
   public void startCameraSource() {
     if (cameraSource != null) {
       try {
         if (preview == null) {
-          Log.d(TAG, "resume: Preview is null");
+          Log.d(TAG, "Preview를 찾을 수 없음.");
         }
         if (graphicOverlay == null) {
-          Log.d(TAG, "resume: graphOverlay is null");
+          Log.d(TAG, "graphOverlay를 찾을 수 없음.");
         }
         preview.start(cameraSource, graphicOverlay);
       } catch (IOException e) {
@@ -282,24 +265,51 @@ public class LivePreviewActivity extends AppCompatActivity
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override
   public void onFaceDetected(boolean faceDetected) {
-    Log.d("얼굴인식",String.valueOf(faceDetected));
     faceview = findViewById(R.id.imageView3);
-    if (faceDetected) {
+    if(faceview == null){
+      faceview = findViewById(R.id.imageView7);
+    }
+    if (faceDetected) { //얼굴인식 O
       face = true;
+      Log.d("TTOOL-face","얼굴인식 O");
       if(LivePreviewActivity.faceview ==null){
-        Log.d("zz","null");
+        Log.d("TTOOL","faceview를 찾을 수 없음.");
       }else{
         faceview.setImageResource(R.drawable.smile);
+        if(speak == false) {
+          startSpeechRecognition();
+        }
       }
-      startSpeechRecognition();
     } else {
       face = false;
+      Log.d("TTOOL-face","얼굴인식 X");
       faceview.setImageResource(R.drawable.face1);
     }
   }
   ////////////////////////얼굴 인식 후 TTS 실행
+  public void SetTTS(){
+    tts = new TextToSpeech(this, this);
+    cThis=this;
+    SttIntent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    SttIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getApplicationContext().getPackageName());
+    SttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");//한국어 사용
+    mRecognizer=SpeechRecognizer.createSpeechRecognizer(cThis);
+    mRecognizer.setRecognitionListener(listener);
+    tts=new TextToSpeech(cThis, new TextToSpeech.OnInitListener() {
+      @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+      @Override
+      public void onInit(int status) {
+        if(status!=android.speech.tts.TextToSpeech.ERROR){
+          tts.setLanguage(Locale.KOREAN);
+          Voice voice = new Voice("ko-kr-x-gender-male", Locale.KOREAN, Voice.QUALITY_VERY_HIGH, Voice.LATENCY_NORMAL, false, null);
+          // Voice 객체를 설정합니다.
+          tts.setVoice(voice);
+          speakOut("뚤");
+        }
+      }
+    });
+  }
   private void startSpeechRecognition() {
-    System.out.println("음성인식 시작!");
     if (ContextCompat.checkSelfPermission(cThis, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
       ActivityCompat.requestPermissions(LivePreviewActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
       // 권한을 허용하지 않는 경우
@@ -312,6 +322,12 @@ public class LivePreviewActivity extends AppCompatActivity
       }
     }
   }
+  private void stopSpeechRecognition() {
+    if (mRecognizer != null) {
+      Log.d("뚤","음성인식 닫음");
+      mRecognizer.stopListening();
+    }
+  }
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override
   public void onInit(int status) { // OnInitListener를 통해서 TTS 초기화
@@ -319,37 +335,59 @@ public class LivePreviewActivity extends AppCompatActivity
       int result = tts.setLanguage(Locale.KOREA); // TTS언어 한국어로 설정
 
       if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
-        Log.e("TTS", "This Language is not supported");
+        Log.e("뚤", "TTS - 이언어는 지원되지않습니다.");
+//        Intent installIntent = new Intent();
+//        installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+//        startActivity(installIntent);
       }else{
-        Log.e("TTS", "음성인식");
+        Log.e("뚤", "음성인식");
       }
     }else{
-      Log.e("TTS", "Initialization Failed!");
+      Log.e("뚤", "Initialization Failed!");
     }
   }
   /////////////음성 출력 메서드 ////////////////
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public void speakOut(CharSequence text){
-
     tts.setPitch((float)0.5); // 음성 톤 높이 지정
     tts.setSpeechRate((float)1.0); // 음성 속도 지정
+    tts.setLanguage(Locale.KOREAN);
     Voice voice = new Voice("ko-KR-Standard-C", Locale.KOREAN, Voice.QUALITY_VERY_HIGH, Voice.LATENCY_NORMAL, false, null);
-
     // Voice 객체를 설정합니다.
     tts.setVoice(voice);
     // 첫 번째 매개변수: 음성 출력을 할 텍스트
     // 두 번째 매개변수: 1. TextToSpeech.QUEUE_FLUSH - 진행중인 음성 출력을 끊고 이번 TTS의 음성 출력
     //                 2. TextToSpeech.QUEUE_ADD - 진행중인 음성 출력이 끝난 후에 이번 TTS의 음성 출력
     tts.speak(text, TextToSpeech.QUEUE_ADD, null, "id1");
+    // 음성 시작 ,출력이 끝난후 ,에러 리스너
+    tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+      //시작 메서드
+      @Override
+      public void onStart(String utteranceId) {
+        speak = true;
+        Log.d("뚤", String.valueOf(speak));
+        stopSpeechRecognition();
+      }
+      //음성 출력후 메서드
+      @Override
+      public void onDone(String utteranceId) {
+        speak = false;
+        Log.d("뚤", String.valueOf(speak));
+      }
+      //에러
+      @Override
+      public void onError(String utteranceId) {
+        Log.d("뚤", "error");
+      }
+    });
+
   }
   private RecognitionListener listener = new RecognitionListener() {
     //음성인식 시작 부분
     @Override
     public void onReadyForSpeech(Bundle bundle) {}
     @Override
-    public void onBeginningOfSpeech() {
-      //txtSystem.setText("지금부터 말을 해주세요..........."+"\r\n"+txtSystem.getText());
-    }
+    public void onBeginningOfSpeech() {}
     @Override
     public void onRmsChanged(float v) {}
     @Override
@@ -368,6 +406,7 @@ public class LivePreviewActivity extends AppCompatActivity
       String[] rs = new String[mResult.size()];
       mResult.toArray(rs);
       FuncVoiceOrderCheck(rs[0]);
+      Log.d("뚤", "음성출력"+rs[0]);
       mRecognizer.stopListening(); //말하고 난 후 마이크 정지
     }
 
@@ -382,13 +421,13 @@ public class LivePreviewActivity extends AppCompatActivity
     if(VoiceMsg.length()<1)return;
 
     VoiceMsg=VoiceMsg.replace(" ","");//공백제거
-    if(VoiceMsg.indexOf("안녕하세요")>-1 || VoiceMsg.indexOf("안녕하세요")>-1){
-      speakOut("네 안녕하세요");
+    if(VoiceMsg.indexOf("안녕하세요")>-1 || VoiceMsg.indexOf("안녕")>-1){
+      speakOut("네 안녕하세요 무엇을 도와드릴까요");
     }
-    if(VoiceMsg.indexOf("메카트로닉스")>-1 || VoiceMsg.indexOf("메카트로닉스")>-1){
+    else if(VoiceMsg.indexOf("메카트로닉스")>-1 || VoiceMsg.indexOf("메카트로닉스")>-1){
       speakOut("메카트로닉스공학과는 기계공학, 전기전자공학, 컴퓨터공학의 융합을 기반으로 현대 사회의 다양한 분야에서 기술적 도전에 대처할 수 있는 창의적이고 전문적인 역량을 함양하는데 초점을 맞추고 있습니다.");
     }
-    if(VoiceMsg.indexOf("강의실")>-1 || VoiceMsg.indexOf("강의실")>-1){
+    else if(VoiceMsg.indexOf("강의실")>-1 || VoiceMsg.indexOf("강의실")>-1){
         if(VoiceMsg.indexOf("405")>-1){
             speakOut("405호 강의실시간표입니다.");
             Intent intent = new Intent(this, infoActivity.class);
@@ -415,33 +454,36 @@ public class LivePreviewActivity extends AppCompatActivity
           speakOut("몇호 강의실인지 정확하게 말씀해주세요.");
         }
     }
-    if(VoiceMsg.indexOf("날씨")>-1 || VoiceMsg.indexOf("날씨")>-1){
-      speakOut("현재 경성대 날씨 정보입니다.");
+    else if(VoiceMsg.indexOf("날씨")>-1 || VoiceMsg.indexOf("날씨")>-1){
+      int index = VoiceMsg.indexOf("날씨");
+      String beforeWeather = VoiceMsg.substring(0, index);
+      speakOut("현재"+beforeWeather+"날씨 정보입니다.");
       Intent intent = new Intent(this, weatherActivity.class);
+      intent.putExtra("option", beforeWeather); // 여기서 "some_value"는 변수의 값입니다.
       startActivity(intent);
     }
-    if(VoiceMsg.indexOf("블루투스")>-1 || VoiceMsg.indexOf("블루투스")>-1){
+    else if(VoiceMsg.indexOf("블루투스")>-1 || VoiceMsg.indexOf("블루투스")>-1){
       setBluetooth();
       speakOut("연결할 블루투스를 선택해주세요.");
     }
-    if(VoiceMsg.indexOf("하이")>-1 || VoiceMsg.indexOf("하이")>-1) {
+    else if(VoiceMsg.indexOf("하이")>-1 || VoiceMsg.indexOf("하이")>-1) {
       sendData("hi");
     }
-    if(VoiceMsg.indexOf("라이더")>-1 || VoiceMsg.indexOf("라이더")>-1) {
+    else if(VoiceMsg.indexOf("라이더")>-1 || VoiceMsg.indexOf("라이더")>-1) {
       try {
         sendDataToSocket(mapping.get("LiDAR"), "hi");
       }catch (Exception e){
         e.printStackTrace();
       }
     }
-    if(VoiceMsg.indexOf("오른쪽팔")>-1 || VoiceMsg.indexOf("왼쪽팔")>-1) {
+    else if(VoiceMsg.indexOf("오른쪽팔")>-1 || VoiceMsg.indexOf("왼쪽팔")>-1) {
       try {
         sendDataToSocket(mapping.get(" Ridar"), "안녕");
       }catch (Exception e){
         e.printStackTrace();
       }
     }
-    if(VoiceMsg.indexOf("월학사일정")>-1 || VoiceMsg.indexOf("월 학사일정")>-1) {
+    else if(VoiceMsg.indexOf("월학사일정")>-1 || VoiceMsg.indexOf("월 학사일정")>-1) {
       String month = VoiceMsg.substring(0,2);
       if(month.substring(1,2).equals("월")) {
         month = month.substring(0,1);
@@ -450,6 +492,11 @@ public class LivePreviewActivity extends AppCompatActivity
       }
       KsHaksa jsoupThread = new KsHaksa(month, mHandler);
       jsoupThread.start();
+    }else {
+      if(VoiceMsg.length() >4) {
+        ChatGPTClient chatGPTClient = new ChatGPTClient(VoiceMsg, mHandler);
+        chatGPTClient.start();
+      }
     }
 
 

@@ -28,7 +28,7 @@ public class infoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-
+        cnt = temp;
 
 
 
@@ -64,7 +64,7 @@ public class infoActivity extends AppCompatActivity {
             public void run() {
                 // 이벤트 발생 코드
                 cnt -=1;
-                textView.setText(String.valueOf(cnt));
+                textView.setText("남은시간 :"+String.valueOf(cnt));
                 if(cnt !=0) {
                     // 다시 자신을 호출하여 1초마다 반복
                     handler.postDelayed(this, 1000);
@@ -75,10 +75,11 @@ public class infoActivity extends AppCompatActivity {
 
             }
         };
-
+        if(cnt ==0){
+            cnt = temp;
+        }
         // 처음에 한 번 실행하고, 이후에는 1초마다 반복
         handler.postDelayed(runnable, 1000);
-
         Button backButton = findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

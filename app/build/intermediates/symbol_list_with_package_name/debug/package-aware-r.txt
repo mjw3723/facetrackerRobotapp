@@ -882,8 +882,11 @@ drawable googleg_standard_color_18
 drawable ic_settings_white_24dp
 drawable ic_switch_camera_white_48dp
 drawable ic_switch_camera_white_48dp_inset
+drawable ks2
+drawable ksu
 drawable list_item_background
 drawable logo_mlkit
+drawable mic
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -1027,7 +1030,6 @@ id edit_query
 id end
 id expand_activities_button
 id expanded_menu
-id facing_switch
 id fillCenter
 id fillEnd
 id fillStart
@@ -1057,6 +1059,8 @@ id ignoreRequest
 id image
 id imageView
 id imageView3
+id imageView4
+id imageView7
 id info
 id infoView
 id invisible
@@ -1120,7 +1124,6 @@ id search_plate
 id search_src_text
 id search_voice_btn
 id select_dialog_listview
-id settings_button
 id settings_container
 id shortcut
 id showCustom

@@ -17,24 +17,27 @@
 
   <WebView
       android:id="@+id/weather_webview"
-      android:layout_width="409dp"
-      android:layout_height="668dp"
-      android:layout_marginStart="1dp"
-      android:layout_marginTop="1dp"
-      android:layout_marginEnd="1dp"
-      android:layout_marginBottom="1dp"
+      android:layout_width="1095dp"
+      android:layout_height="523dp"
+      android:layout_marginStart="150dp"
+      android:layout_marginTop="250dp"
+      android:layout_marginEnd="150dp"
+      android:layout_marginBottom="300dp"
       app:layout_constraintBottom_toTopOf="@+id/back"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.408"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
       android:id="@+id/textView"
-      android:layout_width="88dp"
-      android:layout_height="63dp"
-      android:textSize="30sp"
+      android:layout_width="228dp"
+      android:layout_height="85dp"
       android:gravity="center"
+      android:textSize="30sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/back" />
+      app:layout_constraintHorizontal_bias="0.56"
+      app:layout_constraintStart_toEndOf="@+id/back"
+      app:layout_constraintTop_toBottomOf="@+id/weather_webview" />
 </androidx.constraintlayout.widget.ConstraintLayout>
