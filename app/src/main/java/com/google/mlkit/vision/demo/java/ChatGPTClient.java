@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class ChatGPTClient extends Thread{
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String API_KEY = "*********";
+    private static final String API_KEY = "************";
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private Handler mHandler;
     public static String text;

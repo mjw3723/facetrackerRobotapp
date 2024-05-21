@@ -25,6 +25,7 @@ color white
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
 dimen padding_standard
+drawable base2
 drawable class212
 drawable class216
 drawable class217
@@ -39,14 +40,18 @@ drawable ksu
 drawable list_item_background
 drawable logo_mlkit
 drawable mic
+drawable sad
 drawable smile
+drawable smile2
 id back
 id control
+id frameLayout
 id graphic_overlay
 id imageView
 id imageView3
 id imageView4
 id imageView7
+id imageView9
 id infoView
 id java_entry_point
 id preview_view

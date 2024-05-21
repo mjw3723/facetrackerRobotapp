@@ -6,7 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true">
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/base2" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="114dp"
+        android:layout_height="94dp"
+        android:layout_gravity="bottom|center"
+        tools:srcCompat="@drawable/mic" />
+</FrameLayout>
   <com.google.mlkit.vision.demo.CameraSourcePreview
       android:id="@+id/preview_view"
       android:layout_width="1dp"
@@ -18,11 +39,13 @@
       android:layout_height="match_parent" />
 
   <FrameLayout
-      android:id="@id/control"
+      android:id="@+id/control"
       android:layout_width="1dp"
       android:layout_height="match_parent"
       android:background="#000"
-      app:layout_constraintEnd_toEndOf="parent">
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/frameLayout"
+      app:layout_constraintTop_toTopOf="parent">
 
     <Spinner
         android:id="@+id/spinner"
@@ -30,17 +53,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top" />
 
+
   </FrameLayout>
 
-  <ImageView
-      android:id="@+id/imageView7"
-      android:layout_width="1271dp"
-      android:layout_height="743dp"
 
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/control"
-      app:layout_constraintStart_toEndOf="@+id/preview_view"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:srcCompat="@drawable/face1" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

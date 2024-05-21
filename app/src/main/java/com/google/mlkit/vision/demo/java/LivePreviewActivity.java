@@ -119,6 +119,7 @@ public class LivePreviewActivity extends AppCompatActivity
   Map<String,BluetoothSocket> mapping = new HashMap<>();
   //메인 이미지 태그
   public static ImageView faceview;
+  public static ImageView micview;
 
 
   /////////////////// 크롤링 결과 출력 메서드//////////////////////
@@ -128,9 +129,33 @@ public class LivePreviewActivity extends AppCompatActivity
     @Override
     public void handleMessage(Message msg) {
       String result = (String) msg.obj;
+      Log.d("뚤-Message",result);
       speakOut(result);
     }
   };
+
+  private final Handler cHandler = new Handler(Looper.getMainLooper()) {
+    @SuppressLint("ResourceType")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void handleMessage(Message msg) {
+      String result = (String) msg.obj;
+      faceview = findViewById(R.id.imageView3);
+      if(faceview == null){
+        faceview = findViewById(R.id.imageView7);
+      }
+      Log.d("뚤-클로바", result);
+      if (result.equals("negative")) {
+        faceview.setImageResource(R.drawable.sad);
+      } else if (result.equals("positive")){
+        faceview.setImageResource(R.drawable.smile2);
+      }
+
+
+    }
+
+  };
+
 
   @SuppressLint("MissingInflatedId")
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -146,6 +171,9 @@ public class LivePreviewActivity extends AppCompatActivity
     } else {
       Toast.makeText(this, "인터넷에 연결되어 있습니다.", Toast.LENGTH_LONG).show();
     }
+
+
+
     ///////////////////////////////얼굴인식/////////////////////////////////
     preview = findViewById(R.id.preview_view);
     if (preview == null) {
@@ -170,6 +198,13 @@ public class LivePreviewActivity extends AppCompatActivity
     createCameraSource(selectedModel);
     //TTS 설정
     SetTTS();
+    faceview = findViewById(R.id.imageView3);
+    if(faceview == null){
+      faceview = findViewById(R.id.imageView7);
+    }
+    faceview.setImageResource(R.drawable.base2);
+    micview = findViewById(R.id.imageView9);
+    micview.setImageResource(R.drawable.mic);
   }
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -265,17 +300,15 @@ public class LivePreviewActivity extends AppCompatActivity
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override
   public void onFaceDetected(boolean faceDetected) {
-    faceview = findViewById(R.id.imageView3);
-    if(faceview == null){
-      faceview = findViewById(R.id.imageView7);
-    }
+    micview = findViewById(R.id.imageView9);
+
     if (faceDetected) { //얼굴인식 O
       face = true;
       Log.d("TTOOL-face","얼굴인식 O");
       if(LivePreviewActivity.faceview ==null){
         Log.d("TTOOL","faceview를 찾을 수 없음.");
       }else{
-        faceview.setImageResource(R.drawable.smile);
+        micview.setVisibility(View.VISIBLE);
         if(speak == false) {
           startSpeechRecognition();
         }
@@ -283,7 +316,7 @@ public class LivePreviewActivity extends AppCompatActivity
     } else {
       face = false;
       Log.d("TTOOL-face","얼굴인식 X");
-      faceview.setImageResource(R.drawable.face1);
+      micview.setVisibility(View.INVISIBLE);
     }
   }
   ////////////////////////얼굴 인식 후 TTS 실행
@@ -333,7 +366,6 @@ public class LivePreviewActivity extends AppCompatActivity
   public void onInit(int status) { // OnInitListener를 통해서 TTS 초기화
     if(status == TextToSpeech.SUCCESS){
       int result = tts.setLanguage(Locale.KOREA); // TTS언어 한국어로 설정
-
       if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
         Log.e("뚤", "TTS - 이언어는 지원되지않습니다.");
 //        Intent installIntent = new Intent();
@@ -372,6 +404,7 @@ public class LivePreviewActivity extends AppCompatActivity
       @Override
       public void onDone(String utteranceId) {
         speak = false;
+        faceview.setImageResource(R.drawable.base2);
         Log.d("뚤", String.valueOf(speak));
       }
       //에러
@@ -405,6 +438,8 @@ public class LivePreviewActivity extends AppCompatActivity
       ArrayList<String> mResult =results.getStringArrayList(key);
       String[] rs = new String[mResult.size()];
       mResult.toArray(rs);
+      Sentiment jsoupThread = new Sentiment(rs[0], cHandler);
+      jsoupThread.start();
       FuncVoiceOrderCheck(rs[0]);
       Log.d("뚤", "음성출력"+rs[0]);
       mRecognizer.stopListening(); //말하고 난 후 마이크 정지
@@ -493,12 +528,11 @@ public class LivePreviewActivity extends AppCompatActivity
       KsHaksa jsoupThread = new KsHaksa(month, mHandler);
       jsoupThread.start();
     }else {
-      if(VoiceMsg.length() >4) {
+      if(VoiceMsg.length() >3) {
         ChatGPTClient chatGPTClient = new ChatGPTClient(VoiceMsg, mHandler);
         chatGPTClient.start();
       }
     }
-
 
   }
 
